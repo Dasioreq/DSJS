@@ -1,0 +1,68 @@
+body
+{
+    background: url("../assets/background.gif") center repeat-x fixed;
+    width: 100vw;
+    height: 100vh;
+    background-size: auto 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+img
+{
+    image-rendering: crisp-edges;
+    margin: auto;
+    mix-blend-mode: multiply;
+}
+
+div#ship
+{
+    display: inline-block;
+    align-items: center;
+    transform: translate(0%, 0%);
+}
+
+div#ship > div#crew
+{
+    position: absolute;
+    height: 29.5%;
+    width: 45%;
+    top: 0px;
+    left: 27.5%;
+}
+
+div#ship > div#fire
+{
+    position: absolute;
+    height: 21.5%;
+    width: 53%;
+    top: 29.5%;
+    left: 23.5%
+}
+
+div#ship > div#infirmary
+{
+    position: absolute;
+    height: 34.5%;
+    width: 55%;
+    top: 51%;
+    left: 0.5%
+}
+
+div#ship > div#recharge
+{
+    position: absolute;
+    height: 34.5%;
+    width: 44%;
+    top: 51%;
+    left: 55.5%
+}
+
+div#ship > div#repair
+{
+    position: absolute;
+    height: 18.5%;
+    width: 37.5%;
+    top: 73%;
+    left: 31%
+}
