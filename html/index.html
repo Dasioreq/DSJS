@@ -4,18 +4,30 @@
         <meta charset="UTF-8">
         <title>Document</title>
         <link rel = "stylesheet" type = "text/css" href = "../styles/stylesheet.css">
+        <link rel = "stylesheet" type = "text/css" href = "../styles/ship.css">
+        <link rel = "stylesheet" type = "text/css" href = "../styles/hullShield.css">
     </head>
     <body>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <script type="text/javascript" src = "../scripts/shipSelection.js"></script>
+        <script type="text/javascript" src = "../scripts/ship.js"></script>
+        <script type="text/javascript" src = "../scripts/hullShield.js"></script>
         <div id = "ship">
-            <img src="../assets/Ship.png">
+            <img src="../assets/Ship.png" id = "ship">
+            <img src="../assets/ShieldHurt.png" id = "shieldHurt">
             <div id = "crew"></div>
             <div id = "fire"></div>
             <div id = "infirmary"></div>
             <div id = "recharge"></div>
             <div id = "repair"></div>
-            <div id = "mask"></div>
+        </div>
+        <table id = "hull">
+            <th><img src = "../assets/Hull.png" id = "hull"></th>
+        </table>
+        <table id = "shield">
+            <th><img src = "../assets/Shield.png" id = "shield"></th>
+        </table>
+        <div id = "infirmary">
+            
         </div>
     </body>
 </html>

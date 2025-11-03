@@ -1,6 +1,13 @@
+html, body 
+{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 body
 {
-    background: url("../assets/background.gif") center repeat-x fixed;
+    background: url("../assets/background.gif") center repeat-x;
     width: 100vw;
     height: 100vh;
     background-size: auto 100%;
@@ -8,61 +15,22 @@ body
     justify-content: center;
     align-items: center;
 }
+
 img
 {
     image-rendering: crisp-edges;
     margin: auto;
-    mix-blend-mode: multiply;
+    padding: 0;
+    display: block;
+    min-width: none;
+    min-height: none;
 }
 
-div#ship
+*
 {
-    display: inline-block;
-    align-items: center;
-    transform: translate(0%, 0%);
-}
-
-div#ship > div#crew
-{
-    position: absolute;
-    height: 29.5%;
-    width: 45%;
-    top: 0px;
-    left: 27.5%;
-}
-
-div#ship > div#fire
-{
-    position: absolute;
-    height: 21.5%;
-    width: 53%;
-    top: 29.5%;
-    left: 23.5%
-}
-
-div#ship > div#infirmary
-{
-    position: absolute;
-    height: 34.5%;
-    width: 55%;
-    top: 51%;
-    left: 0.5%
-}
-
-div#ship > div#recharge
-{
-    position: absolute;
-    height: 34.5%;
-    width: 44%;
-    top: 51%;
-    left: 55.5%
-}
-
-div#ship > div#repair
-{
-    position: absolute;
-    height: 18.5%;
-    width: 37.5%;
-    top: 73%;
-    left: 31%
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
 }
