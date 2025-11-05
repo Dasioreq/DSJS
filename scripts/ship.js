@@ -4,7 +4,7 @@ $(document).ready(function()
     {
         xDistance = event.pageX - ($("div#ship").offset().left + $("div#ship").width() * 0.5);
         yDistance = event.pageY - ($("div#ship").offset().top + $("div#ship").height() * 0.5);
-        $("div#ship").css({"transform": `translate(${-xDistance / $(window).width() * 5}%, ${-yDistance / $(window).height() * 5}%`});
+        $("div#ship").css({"transform": `translate(${-xDistance / $(window).width() * 5 + 50}%, ${-yDistance / $(window).height() * 5 - 50}%`});
     })
 
     $("div#ship > div#crew").click(function(event)

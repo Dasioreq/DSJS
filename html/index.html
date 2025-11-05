@@ -6,13 +6,16 @@
         <link rel = "stylesheet" type = "text/css" href = "../styles/stylesheet.css">
         <link rel = "stylesheet" type = "text/css" href = "../styles/ship.css">
         <link rel = "stylesheet" type = "text/css" href = "../styles/hullShield.css">
+        <link rel = "stylesheet" type = "text/css" href = "../styles/medic.css">
     </head>
     <body>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script type="text/javascript" src = "../scripts/ship.js"></script>
         <script type="text/javascript" src = "../scripts/hullShield.js"></script>
+        <script type="text/javascript" src = "../scripts/medic.js"></script>
         <div id = "ship">
             <img src="../assets/Ship.png" id = "ship">
+            <img src="../assets/ShipOutline.svg" id = "shipOutline">
             <img src="../assets/ShieldHurt.png" id = "shieldHurt">
             <div id = "crew"></div>
             <div id = "fire"></div>
@@ -20,14 +23,22 @@
             <div id = "recharge"></div>
             <div id = "repair"></div>
         </div>
-        <table id = "hull">
-            <th><img src = "../assets/Hull.png" id = "hull"></th>
-        </table>
-        <table id = "shield">
-            <th><img src = "../assets/Shield.png" id = "shield"></th>
-        </table>
-        <div id = "infirmary">
-            
+        <div id = "shieldHull">
+            <table id = "hull">
+                <th><img src = "../assets/Hull.png" id = "hull"></th>
+            </table>
+            <table id = "shield">
+                <th><img src = "../assets/Shield.png" id = "shield"></th>
+            </table>
+        </div>
+        <div id = "medic">
+            <label id = "returned">Returned</label>
+            <div id = "infirmary">
+                <svg style="width:100%;height:100%;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 30" preserveAspectRatio="none">
+                    <path d = "M 100 1 L 52.5 1 L 47.5 5 L 0 5" style = "fill: none; stroke: rgb(128, 128, 128); stroke-dasharray: 2,2"></path>
+                </svg>
+                <label id = "infirmary">Infirmary</label>
+            </div>
         </div>
     </body>
 </html>

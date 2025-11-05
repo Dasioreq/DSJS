@@ -1,0 +1,47 @@
+div#medic
+{
+    display: flex;
+    background-color: white;
+    position: absolute;
+    left: 23.6076%;
+    right: 61.8%;
+    top: 61.8%;
+    bottom: 0%;
+    margin: 0.5rem;
+    border-radius: 2vh;
+    border: 3px solid black;
+    flex-direction: column;
+}
+
+div#medic label
+{
+    font-size: 1vmax;
+    font-weight: bold;
+}
+
+div#medic > label#returned
+{
+    margin-top: 2%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div#medic > div#infirmary
+{
+    display: flex;
+    position: absolute;
+    width: 100%;
+    height: 30%;
+    bottom: 0%;
+    left: 0%;
+    flex-direction: column;
+
+}
+
+div#medic > div#infirmary > label#infirmary
+{
+    position: absolute;
+    left: 75%;
+    top: 2.5%;
+    transform: translateX(-50%);
+}

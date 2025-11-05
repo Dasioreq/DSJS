@@ -47,6 +47,35 @@ function updateShieldAndHull()
     {
         $("table#shield").append(shieldPt);
     }
+
+    if(shield <= 1)
+    {
+        playAnimation($("table#shield"), "shaking");
+    }
+    else
+    {
+        stopAnimation($("table#shield"), "shaking");
+    }
+
+    if(shield <= 0)
+    {
+        stopAnimation($("table#shield"), "shaking");
+        stopAnimation($("table#shield"), "shake", true);
+        $("table#shield").css("opacity", "50%");
+    }
+    else
+    {
+        $("table#shield").css("opacity", "100%");
+    }
+
+    if(hull <= 3)
+    {
+        playAnimation($("table#hull"), "shaking");
+    }
+    else
+    {
+        stopAnimation($("table#hull"), "shaking");
+    }
 }
 
 function dealDamage(damage)
@@ -61,16 +90,6 @@ function dealDamage(damage)
         playAnimation($("table#shield"), "shake", true);
         shield -= damage;
         updateShieldAndHull();
-        if(shield <= 1)
-        {
-            playAnimation($("table#shield"), "shaking");
-        }
-        if(shield <= 0)
-        {
-            stopAnimation($("table#shield"), "shaking");
-            stopAnimation($("table#shield"), "shake", true);
-            $("table#shield").css("opacity", "50%");
-        }
         shieldHurt.fadeIn(50);
         shieldHurt.fadeOut(100);
     }
@@ -79,12 +98,10 @@ function dealDamage(damage)
         damage -= shield;
         hull -= damage;
         playAnimation($("table#hull"), "shake", true);
-
         playAnimation(ship, "shake");
-        updateShieldAndHull();
-        if(hull <= 3)
+        if(hull <= 1)
         {
-            playAnimation($("table#hull"), "shaking");
+            playAnimation(ship, "mildShaking");
         }
         if(hull <= 0)
         {
@@ -93,7 +110,29 @@ function dealDamage(damage)
             $("table#hull").css("opacity", "50%");
             // Yew fokin ded m8
         }
+        updateShieldAndHull();
     }
+}
+
+function repairShields(repair)
+{
+    let shieldHurt = $("div#ship > img#shieldHurt");
+    stopAnimation($("div#ship > img#ship"), "shake")
+    stopAnimation($("div#ship > img#shieldHurt"), "shake")
+
+    if(shield + repair >= 4)
+    {
+        shield = 4;
+    }
+    else
+    {
+        shield += repair;
+    }
+
+    updateShieldAndHull();
+    shieldHurt.css("filter", `hue-rotate(${(4 - shield) / 4 * -120}deg)`)
+    shieldHurt.fadeIn(50);
+    shieldHurt.fadeOut(100);
 }
 
 $(document).ready(function()
@@ -102,4 +141,18 @@ $(document).ready(function()
     $("div#ship > img#shieldHurt").hide();
 
     $("body").click(function(){dealDamage(1)})
+    $("body").keypress(function(){repairShields(1)})
+
+    $("table#shield").hover(function()
+    {
+        $("div#ship > img#shieldHurt").show();
+        $("div#ship > img#shieldHurt").css("filter", `hue-rotate(${(4 - shield) / 4 * -120}deg)`);
+        playAnimation($("div#ship > img#shieldHurt"), "fading");
+    })
+
+    $("table#shield").mouseleave(function()
+    {
+        $("div#ship > img#shieldHurt").hide();
+        stopAnimation($("div#ship > img#shieldHurt"), "fading");
+    })
 })

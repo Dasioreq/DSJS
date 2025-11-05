@@ -1,13 +1,25 @@
-img#ship
+div#ship > img#ship, div#ship > img#shieldHurt, div#ship > img#shipOutline
 {
-    width: 50vh;
+    object-fit: contain;
+    width: 50vw;
+    max-height: 75vh;
+}
+
+div#ship > img#shipOutline
+{
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 div#ship
 {
     display: inline-block;
     align-items: center;
-    transform: translate(0%, 0%);
+    position: absolute;
+    right: 30.90169945vw;
+    top: 50%;
+    transform: translate(50%, -50%);
 }
 
 div#ship > div#crew
@@ -54,3 +66,4 @@ div#ship > div#repair
     top: 73%;
     left: 31%
 }
+

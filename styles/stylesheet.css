@@ -8,12 +8,9 @@ html, body
 body
 {
     background: url("../assets/background.gif") center repeat-x;
-    width: 100vw;
-    height: 100vh;
+    /* background-image: url("../assets/Ougon_kaiten_energy.jpg"); */
+    /* background-size: 100vw 100%;     */
     background-size: auto 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 img
@@ -26,6 +23,19 @@ img
     min-height: none;
 }
 
+@font-face 
+{
+    font-family: Orbitron; /* set name */
+    src: url(../assets/fonts/orbitron-light.otf); /* url of the font */
+}
+
+@font-face 
+{
+    font-family: Orbitron; /* set name */
+    src: url(../assets/fonts/orbitron-bold.otf); /* url of the font */
+    font-weight: bold;
+}
+
 *
 {
     -moz-user-select: -moz-none;
@@ -33,4 +43,5 @@ img
     -webkit-user-select: none;
     -o-user-select: none;
     user-select: none;
+    font-family: Orbitron;
 }
