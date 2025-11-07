@@ -145,40 +145,14 @@ $(document).ready(function()
 
     $("table#shield").hover(function()
     {
-        if($("body > div#shieldHighlight").length) {
-            $("body > div#shieldHighlight").replaceWith(highlight (
-                "shieldHighlight",
-                [
-                    $("table#shield").offset().left + $("table#shield").width() * 0.5, 
-                    $("table#shield").offset().top + $("table#shield").height()
-                ],
-                [
-                    $("div#ship").offset().left + $("div#ship").width(),
-                    $("div#ship").offset().top + $("div#ship").height()
-                ],
-                0,
-                255,
-                0
-            ))
+        if($("div#shipHl").length)
+        {
+            $("div#shipHl").replaceWith(highlight($("div#ship"), "shipHl", "yellowgreen"));
         }
-        else {
-            console.log($("table#shield").offset().left + $("table#shield").width() * 0.5);
-            $("body").append(highlight (
-                "shieldHighlight",
-                [
-                    $("table#shield").offset().left + $("table#shield").width() * 0.5, 
-                    $("table#shield").offset().top + $("table#shield").height()
-                ],
-                [
-                    $("div#ship").offset().left,
-                    $("div#ship").offset().top + $("table#shield").height() * 0.5
-                ],
-                0,
-                255,
-                0
-            ))
+        else
+        {
+            highlight($("div#ship"), "shipHl", "yellowgreen");
         }
-        
         $("div#ship > img#shieldHurt").show();
         $("div#ship > img#shieldHurt").css("filter", `hue-rotate(${(4 - shield) / 4 * -120}deg)`);
         playAnimation($("div#ship > img#shieldHurt"), "fading");
@@ -186,7 +160,7 @@ $(document).ready(function()
 
     $("table#shield").mouseleave(function()
     {
-        $("body > div#shieldHighlight").remove();
+        $("div#shipHl").remove();
         $("div#ship > img#shieldHurt").hide();
         stopAnimation($("div#ship > img#shieldHurt"), "fading");
     })

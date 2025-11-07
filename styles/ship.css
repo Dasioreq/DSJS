@@ -1,8 +1,8 @@
 div#ship > img#ship, div#ship > img#shieldHurt, div#ship > img#shipOutline
 {
     object-fit: contain;
-    width: 50vw;
     max-height: 75vh;
+    width: 100%;
 }
 
 div#ship > img#shipOutline

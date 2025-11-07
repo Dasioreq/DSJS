@@ -25,14 +25,14 @@ img
 
 @font-face 
 {
-    font-family: Orbitron; /* set name */
-    src: url(../assets/fonts/orbitron-light.otf); /* url of the font */
+    font-family: Orbitron;
+    src: url(../assets/fonts/orbitron-light.otf);
 }
 
 @font-face 
 {
-    font-family: Orbitron; /* set name */
-    src: url(../assets/fonts/orbitron-bold.otf); /* url of the font */
+    font-family: Orbitron;
+    src: url(../assets/fonts/orbitron-bold.otf); 
     font-weight: bold;
 }
 
