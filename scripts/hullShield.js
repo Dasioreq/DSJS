@@ -91,7 +91,7 @@ function dealDamage(damage)
         shield -= damage;
         updateShieldAndHull();
         shieldHurt.fadeIn(50);
-        shieldHurt.fadeOut(100);
+        shieldHurt.fadeOut(200);
     }
     else
     {
@@ -145,23 +145,14 @@ $(document).ready(function()
 
     $("table#shield").hover(function()
     {
-        if($("div#shipHl").length)
-        {
-            $("div#shipHl").replaceWith(highlight($("div#ship"), "shipHl", "yellowgreen"));
-        }
-        else
-        {
-            highlight($("div#ship"), "shipHl", "yellowgreen");
-        }
-        $("div#ship > img#shieldHurt").show();
+        $("div#ship > img#shieldHurt").fadeIn(100);
         $("div#ship > img#shieldHurt").css("filter", `hue-rotate(${(4 - shield) / 4 * -120}deg)`);
         playAnimation($("div#ship > img#shieldHurt"), "fading");
     })
 
     $("table#shield").mouseleave(function()
     {
-        $("div#shipHl").remove();
-        $("div#ship > img#shieldHurt").hide();
+        $("div#ship > img#shieldHurt").fadeOut(100);
         stopAnimation($("div#ship > img#shieldHurt"), "fading");
     })
 })
