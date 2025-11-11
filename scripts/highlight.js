@@ -4,7 +4,7 @@ function highlight(element, id, color) {
         left: ${element.offset().left}px;
         width: ${element.width()}px;
         height: ${element.height()}px;
-        outline: 10px solid ${color};
+        outline: 5px solid ${color};
         border-radius: 50px;
     "></div>`
 
