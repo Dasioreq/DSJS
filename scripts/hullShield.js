@@ -10,7 +10,7 @@ function resetAnimation(animName)
     for(let i = 0; i < shaking.length; i++)
     {
         shaking[i].style.animation = 'none';
-        shaking[i].offsetHeight; /* trigger reflow */
+        shaking[i].offsetHeight;
         shaking[i].style.animation = null; 
     }
 }

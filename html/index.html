@@ -8,12 +8,13 @@
         <link rel = "stylesheet" type = "text/css" href = "../styles/hullShield.css">
         <link rel = "stylesheet" type = "text/css" href = "../styles/medic.css">
         <link rel = "stylesheet" type = "text/css" href = "../styles/highlight.css">
+        <link rel = "stylesheet" type = "text/css" href = "../styles/threats.css">
     </head>
     <body>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script type="text/javascript" src = "../scripts/ship.js"></script>
         <script type="text/javascript" src = "../scripts/hullShield.js"></script>
-        <script type="text/javascript" src = "../scripts/highlight.js"></script>
+        <script type="text/javascript" src = "../scripts/threats.js"></script>
         <div id = "ship">
             <img src="../assets/Ship.png" id = "ship">
             <img src="../assets/ShieldHurt.png" id = "shieldHurt">
@@ -38,6 +39,19 @@
                     <path d = "M 100 1 L 52.5 1 L 47.5 5 L 0 5" style = "fill: none; stroke: rgb(128, 128, 128); stroke-dasharray: 2,2"></path>
                 </svg>
                 <label id = "infirmary">Infirmary</label>
+            </div>
+        </div>
+        <div id = "threats-tab">THREATS</div>
+        <div id = "threats">
+            <div class = "threat-ship" id = "Fighter">
+                <img id = "ship" src = "../assets/threats/ships/Fighter.png">
+                <p id = "hp">4</p>
+                <img id = "activity" src = "../assets/threats/ships/activity0.svg" style = "left: 40%">
+                <img id = "activity" src = "../assets/threats/ships/activity1.svg" style = "left: 44%">
+                <img id = "activity" src = "../assets/threats/ships/activity0.svg" style = "left: 48%">
+                <img id = "activity" src = "../assets/threats/ships/activity1.svg" style = "left: 52%">
+                <img id = "activity" src = "../assets/threats/ships/activity0.svg" style = "left: 56%">
+                <img id = "activity" src = "../assets/threats/ships/activity0.svg" style = "left: 60%">
             </div>
         </div>
     </body>

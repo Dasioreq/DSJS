@@ -8,6 +8,8 @@ div#shieldHull
     bottom: 61.8%;
     margin: 0.5rem;
     flex-direction: row;
+    overflow: visible;
+
     /* flex-wrap: wrap; */
 }
 
@@ -88,8 +90,8 @@ img#shieldHurt
 div#shieldHull > table
 {
     opacity: 100%;
-    width: 5vmin;
-    height: 5vmin;
+    max-width: 5vmin;
+    max-height: 5vmin;
     margin-left: 1vmin;
 }
 

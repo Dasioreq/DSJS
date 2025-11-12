@@ -1,0 +1,55 @@
+div#threats-tab {
+    display: flex;
+    position: absolute;
+    height: 20vh;
+    width: 30px;
+    right: 0;
+    top: 0;
+    background-color: rgb(255, 70, 70);
+    border-radius: 10px 0 0 10px;
+    writing-mode: tb-rl;
+    padding: 5px;
+    text-shadow:
+    -1px -1px 0 #fff, /*Foo Fightaz*/
+    1px -1px 0 #fff,
+    -1px 1px 0 #fff,
+    1px 1px 0 #fff;
+}
+
+div#threats {
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 100vh;
+    background-color: rgb(255, 70, 70);
+    border-radius: 0 0 0 50px;
+    flex-direction: column;
+}
+
+div#threats > div.threat-ship {
+    width: 90%;
+    margin: auto;
+    border-radius: 15px;
+    position: relative;
+}
+
+div.threat-ship > img#ship {
+    width: 100%;
+}
+
+div.threat-ship > img#activity {
+    position: absolute;
+    width: 0.5cqw;
+    top: 46.75%;
+    transform: translate(-50%, -50%);
+}
+
+div.threat-ship > p#hp {
+    font-size: 0.9cqw;
+    position: absolute;
+    top: 0.01cqh;
+    left: 1.5cqw;
+    color: white
+}
