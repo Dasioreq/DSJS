@@ -147,6 +147,7 @@ $(document).ready(function()
     {
         $("div#ship > img#shieldHurt").fadeIn(100);
         $("div#ship > img#shieldHurt").css("filter", `hue-rotate(${(4 - shield) / 4 * -120}deg)`);
+        stopAnimation($("div#ship > img#shieldHurt"), "shake");
         playAnimation($("div#ship > img#shieldHurt"), "fading");
     })
 
