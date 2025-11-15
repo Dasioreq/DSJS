@@ -78,12 +78,12 @@ function updateShieldAndHull()
     }
 }
 
-function dealDamage(damage)
+function dealDamage(damage, ignoreShields = false)
 {
     let shieldHurt = $("div#ship > img#shieldHurt");
     let ship = $("div#ship > img#ship");
 
-    if(damage <= shield)
+    if(damage <= shield && !ignoreShields)
     {
         shieldHurt.css("filter", `hue-rotate(${(4 - shield) / 4 * -120}deg)`)
         playAnimation(shieldHurt, "shake", true);
@@ -95,7 +95,10 @@ function dealDamage(damage)
     }
     else
     {
-        damage -= shield;
+        if(!ignoreShields) {
+            damage -= shield;
+            shield = 0;
+        }
         hull -= damage;
         playAnimation($("table#hull"), "shake", true);
         playAnimation(ship, "shake");

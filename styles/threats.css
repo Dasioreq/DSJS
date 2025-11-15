@@ -18,7 +18,7 @@ div#threats-tab {
 }
 
 div#threats {
-    display: flex;
+    /* display: flex; */
     position: absolute;
     top: 0;
     right: 0;
@@ -27,6 +27,11 @@ div#threats {
     background-color: rgb(255, 70, 70);
     border-radius: 0 0 0 50px;
     flex-direction: column;
+    overflow: scroll;
+}
+
+::-webkit-scrollbar {
+    display: none;
 }
 
 div#threats > div#activity-monitor {
@@ -49,6 +54,7 @@ div#threats > div.threat-ship {
     margin: auto;
     border-radius: 15px;
     position: relative;
+    margin-bottom: 20px;
 }
 
 div.threat-ship > img#ship {
@@ -58,7 +64,6 @@ div.threat-ship > img#ship {
 div.threat-ship > img.activity {
     position: absolute;
     width: 0.5cqw;
-    top: 46.75%;
     transform: translate(-50%, -50%);
 }
 
@@ -69,4 +74,18 @@ div.threat-ship > p#hp {
     top: 2%;
     left: 1.5cqw;
     color: white
+}
+
+@keyframes fire {
+    0% {outline: 0px solid red}
+    90% {outline: 10px solid red}
+    100% {outline: 0px solid red}
+}
+
+.fire {
+    /* outline-color: red; */
+    animation-name: fire;
+    animation-timing-function: linear;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
 }
