@@ -140,8 +140,8 @@ $(document).ready(function()
     updateShieldAndHull();
     $("div#ship > img#shieldHurt").hide();
 
-    $("body").click(function(){dealDamage(1)})
-    $("body").keypress(function(){repairShields(1)})
+    // $("body").click(function(){dealDamage(1)})
+    // $("body").keypress(function(){repairShields(1)})
 
     $("table#shield").hover(function()
     {

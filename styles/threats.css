@@ -8,7 +8,8 @@ div#threats-tab {
     background-color: rgb(255, 70, 70);
     border-radius: 10px 0 0 10px;
     writing-mode: tb-rl;
-    padding: 5px;
+    padding: 10px;
+    font-size: 3vmin;
     text-shadow:
     -1px -1px 0 #fff, /*Foo Fightaz*/
     1px -1px 0 #fff,
@@ -28,6 +29,21 @@ div#threats {
     flex-direction: column;
 }
 
+div#threats > div#activity-monitor {
+    display: flex;
+    flex-direction: row;
+    padding: 15px;
+    background-color: rgb(136, 37, 37);
+    color: white;
+    border-radius: 15px 0 15px 15px;
+    height: 5%;
+    overflow: visible;
+}
+
+div#threats > div#activity-monitor > img.activity {
+    width: 3vmin;
+}
+
 div#threats > div.threat-ship {
     width: 90%;
     margin: auto;
@@ -39,7 +55,7 @@ div.threat-ship > img#ship {
     width: 100%;
 }
 
-div.threat-ship > img#activity {
+div.threat-ship > img.activity {
     position: absolute;
     width: 0.5cqw;
     top: 46.75%;
@@ -48,8 +64,9 @@ div.threat-ship > img#activity {
 
 div.threat-ship > p#hp {
     font-size: 0.9cqw;
+    font-weight: bold;
     position: absolute;
-    top: 0.01cqh;
+    top: 2%;
     left: 1.5cqw;
     color: white
 }
