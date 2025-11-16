@@ -28,6 +28,7 @@ div#threats {
     border-radius: 0 0 0 50px;
     flex-direction: column;
     overflow: scroll;
+    padding-top: calc(5% + 5px);
 }
 
 ::-webkit-scrollbar {
@@ -43,6 +44,10 @@ div#threats > div#activity-monitor {
     border-radius: 15px 0 15px 15px;
     height: 5%;
     overflow: visible;
+    margin-bottom: 15px;
+    position: fixed;
+    top: 0;
+    z-index: 9001; /*it's over 9000*/
 }
 
 div#threats > div#activity-monitor > img.activity {
@@ -77,9 +82,9 @@ div.threat-ship > p#hp {
 }
 
 @keyframes fire {
-    0% {outline: 0px solid red}
-    90% {outline: 10px solid red}
-    100% {outline: 0px solid red}
+    0% {outline: 0px solid red; outline-offset: 0px;}
+    90% {outline: 10px solid red; outline-offset: -5px;}
+    100% {outline: 0px solid red; outline-offset: 0px;}
 }
 
 .fire {
@@ -88,4 +93,16 @@ div.threat-ship > p#hp {
     animation-timing-function: linear;
     animation-duration: 1s;
     animation-iteration-count: 1;
+}
+
+@keyframes blinking {
+    from {visibility: visible;}
+    to {visibility: hidden;}
+}
+
+.blinking {
+    animation-name: blinking;
+    animation-iteration-count: infinite;
+    animation-timing-function: steps(2, start);
+    animation-duration: 0.5s;
 }

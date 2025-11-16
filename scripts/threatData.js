@@ -98,7 +98,7 @@ const data = {
             imgPath: "../assets/threats/ships/Mercenary.png",
             qnt: 1,
             weight: 1,
-            top: 41.42
+            top: 110
         },
         {
             name: "Interceptor",
@@ -138,13 +138,16 @@ function setup() {
     threats = buff;
 }
 
+function pullThreat() {
+    let threat = threats.pop();
+    activeThreats.push(threat);
+    threat.deploy($("div#threats"));
+    activeThreats.sort(function(a, b){b.weight - a.weight})
+}
+
 $("document").ready(function() {
     setup();
 
-    while(threats.length) {
-        let threat = threats.pop();
-        console.log(threat.name);
-        activeThreats.push(threat);
-        threat.deploy($("div#threats"));
-    }
+    pullThreat();
+    pullThreat();
 })

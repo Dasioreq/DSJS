@@ -37,41 +37,76 @@ class Threat {
     }
 
     activate(activity) {
-        playAnimation($(`div.threat-ship#${this.id}`), "fire");
-        if(this.activity.includes(activity)) {
-            this.effect();
-        }
+        return new Promise((resolve) => {
+            if(this.activity.includes(activity)) {
+                const fun = () => {
+                    this.effect();
+                    stopAnimation($(`div#${this.id}.threat-ship`), "fire");
+                    resolve();
+                }
+                playAnimation($(`div#${this.id}.threat-ship`), "fire");
+                $(`div#${this.id}.threat-ship`).one("animationend", fun);
+            }
+            else {
+                resolve();
+            }
+        })
+        
     }
 
     dealDamage(damage) {
         if(this.health - damage <= 0) {
             this.health = 0;
-            $(`div.threat-ship#${this.id}`).remove();
+            $(`div#${this.id}.threat-ship`).remove();
             this.deployed = false;
         }
         else {
             this.health -= damage;
         }
 
-        $(`div.threat-ship#${this.id} > p#hp`).html(this.health);
-        playAnimation($(`div.threat-ship#${this.id}`), "shake", "true");
+        $(`div#${this.id}.threat-ship > p#hp`).html(this.health);
+        playAnimation($(`div#${this.id}.threat-ship`), "shake", "true");
     }
 }
 
 var threats = []
 var activeThreats = []
 
+async function activateThreats() {
+    let activity = Math.floor(Math.random() * 6 + 1);
+    $(`div#threats > div#activity-monitor > img`).attr("src", "../assets/threats/ships/activity0.svg");
+    $(`div#threats > div#activity-monitor > img#${activity}`).attr("src", "../assets/threats/ships/activity1.svg");
+    stopAnimation($(`div#threats > div#activity-monitor > img`), "blinking");
+    playAnimation($(`div#threats > div#activity-monitor > img#${activity}`), "blinking");
+    for(let i = 0; i < activeThreats.length; i++)
+    {
+        await activeThreats[i].activate(activity);
+    }
+    stopAnimation($(`div#threats > div#activity-monitor > img`), "blinking");
+    // $(`div#threats > div#activity-monitor > img`).attr("src", "../assets/threats/ships/activity0.svg");
+}
+
+function closeThreatMenu() {
+    $("div#threats-tab").animate({right: '0'}, 200);
+    $("div#threats").animate({width: '0vw'}, 200);
+}
+
+function openThreatMenu() {
+    if(!$("div#threats-tab").is(":animated"))
+    {
+        $("div#threats").animate({width: '15vw'}, 200);
+        $("div#threats-tab").animate({right: '15vw'}, 200);
+    }
+}
+
 $("document").ready(function() { 
     $("div#threats").mouseleave(function(){
-        $("div#threats-tab").animate({right: '0'}, 200);
-        $(this).animate({width: '0vw'}, 200);
+        if(gameState != GameState.ACTIVATE_THREATS)
+            openThreatMenu();
     })
 
     $("div#threats-tab").mouseenter(function(){
-        if(!$(this).is(":animated"))
-        {
-            $("div#threats").animate({width: '15vw'}, 200);
-            $(this).animate({right: '15vw'}, 200);
-        }
+        if(gameState != GameState.ACTIVATE_THREATS)
+            closeThreatMenu();
     })
 })
