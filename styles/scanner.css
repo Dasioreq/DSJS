@@ -9,6 +9,10 @@ div#scanner, div#scannerBackdrop {
 }
 
 div#scanner > img, div#scannerBackdrop > img {
-    margin-left: 5px;
-    margin-right: 5px;
+    margin-left: 2.5px;
+    margin-right: 2.5px;
+}
+
+div#scannerBackdrop {
+    opacity: 0.5;
 }

@@ -53,7 +53,7 @@ function moveElement𝐹𝒶𝒷𝓊𝓁𝑜𝓊𝓈𝓁𝓎(newEl, old, newPare
         let targetY = newParent.children().last().offset().top;
         let targetX = newParent.children().last().offset().left;
         old.animate({top: targetY, left: targetX}, 250, function() {
-            newParent.children().last().css({visibility: "visible"});
+            newParent.children().css({visibility: "visible"});
             old.remove();
         });
 

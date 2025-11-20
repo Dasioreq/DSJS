@@ -21,6 +21,12 @@ function update() {
                 break;
             }
             openDiceMenu();
+            for(let i = 0; i < crew.length; i++) {
+                if(crew[i].type == CrewType.THREAT_D) {
+                    selectedId = crew[i].id;
+                    rooms[5].assign(selectedId);
+                }
+            }
         break;
         case GameState.ACTIVATE_THREATS:
             openThreatMenu();

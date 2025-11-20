@@ -20,11 +20,11 @@ class Room {
         }) 
     }
 
-    assign(crewMemberId, lock = false) {
+    assign(crewMemberId) {
         for(let i = 0; i < crew.length; i++) {
             if(crew[i].id == crewMemberId) {
                 if(crew[i].type == this.crewType) {
-                    crew[i].assign(lock);
+                    crew[i].assign(this.lock);
                     this.assignedCrew.push(crew[i]);
                     crew[i].render(this.element);
                     this.onAssign(this.assignedCrew);
@@ -45,7 +45,8 @@ $(document).ready(function()
         new Room(CrewType.MEDICAL, function() { console.log("Medical"); }, false, $("div#ship > div#infirmary")),
         new Room(CrewType.SCIENCE, function() { console.log("Science"); }, false, $("div#ship > div#recharge")),
         new Room(CrewType.ENGINEERING, function(assignedCrew) { hull = clamp(hull + (assignedCrew.length > 1? 2 : 1), 0, 8); updateShieldAndHull(); }, false, $("div#ship > div#repair")),
-    ]
+        new Room(CrewType.THREAT_D, function() {}, true, $("div#scanner"))
+    ];
 
     $("body").mousemove(function(event)
     {
