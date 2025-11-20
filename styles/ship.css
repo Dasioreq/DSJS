@@ -13,6 +13,18 @@ div#ship
     right: 30.90169945vw;
     top: 50%;
     transform: translate(50%, -50%);
+    overflow: visible;
+}
+
+div#ship > div {
+    align-items: center;
+    text-align:center;
+    display: flex;
+}
+
+div#ship > div > img.crewDie {
+    margin: auto;
+    margin-top: auto;
 }
 
 div#ship > div#crew

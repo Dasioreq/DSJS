@@ -101,12 +101,12 @@ function openThreatMenu() {
 
 $("document").ready(function() { 
     $("div#threats").mouseleave(function(){
-        if(gameState != GameState.ACTIVATE_THREATS)
-            openThreatMenu();
+        if(gameState != GameState.ACTIVATE_THREATS && gameState != GameState.ATTACK_THREAT)
+            closeThreatMenu();
     })
 
     $("div#threats-tab").mouseenter(function(){
-        if(gameState != GameState.ACTIVATE_THREATS)
-            closeThreatMenu();
+        if(gameState != GameState.ACTIVATE_THREATS && gameState != GameState.ATTACK_THREAT)
+            openThreatMenu();
     })
 })

@@ -8,9 +8,9 @@ html, body
 body
 {
     background: url("../assets/background.gif") center repeat-x;
-    /* background-image: url("../assets/Ougon_kaiten_energy.jpg"); */
+    background-image: url("../assets/Ougon_kaiten_energy.jpg");
     background-size: 100vw 100%;    
-    background-size: auto 100%;
+    /* background-size: auto 100%; */
 }
 
 img

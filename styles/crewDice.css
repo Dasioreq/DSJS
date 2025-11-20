@@ -1,0 +1,30 @@
+div#crewDice {
+    display: flex;
+    position: absolute;
+    left: -23.6076vw;
+    bottom: 38.2vh;
+    top: 38.2vh;
+    min-width: 23.6076vw;
+    margin: 5px;
+    flex-direction: column;
+}
+
+div#crewDice > div#dice {
+    display: inline;
+    height: 50%;
+    /* width: 100%; */
+}
+
+div#crewDice > div#text {
+    background-color: rgb(255, 70, 70);
+    padding: 10px;
+    font-size: 200%;
+    transform: skewX(-20deg);
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+div#dice > img {
+    display: inline;
+    transition: margin-left linear;
+}

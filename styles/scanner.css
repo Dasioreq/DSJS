@@ -1,0 +1,14 @@
+div#scanner, div#scannerBackdrop {
+    position: absolute;
+    width: 23.6076vw;
+    margin: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 5px;
+}
+
+div#scanner > img, div#scannerBackdrop > img {
+    margin-left: 5px;
+    margin-right: 5px;
+}
