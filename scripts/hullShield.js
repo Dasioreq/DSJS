@@ -141,22 +141,4 @@ function repairShields(repair)
 $(document).ready(function()
 {
     updateShieldAndHull();
-    $("div#ship > img#shieldHurt").hide();
-
-    // $("body").click(function(){dealDamage(1)})
-    // $("body").keypress(function(){repairShields(1)})
-
-    $("table#shield").hover(function()
-    {
-        $("div#ship > img#shieldHurt").fadeIn(100);
-        $("div#ship > img#shieldHurt").css("filter", `hue-rotate(${(4 - shield) / 4 * -120}deg)`);
-        stopAnimation($("div#ship > img#shieldHurt"), "shake");
-        playAnimation($("div#ship > img#shieldHurt"), "fading");
-    })
-
-    $("table#shield").mouseleave(function()
-    {
-        $("div#ship > img#shieldHurt").fadeOut(100);
-        stopAnimation($("div#ship > img#shieldHurt"), "fading");
-    })
 })

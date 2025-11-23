@@ -31,7 +31,26 @@ class Threat {
         }
 
         el += "</div>";
-        element.append(el);
+        $("div#threatDeck").append(el);
+
+        $(`div#${this.id}.threat-ship`).off("click");
+        let self = this;
+        $(`div#${this.id}.threat-ship`).click(function() {
+            if(gameState == GameState.ATTACK_THREAT) {
+                self.dealDamage((rooms[1].assignedCrew.length > 1)? 2 : 1);
+                closeThreatMenu();
+                for(let i = 0; i < 6; i++) {
+                    if(!crew[i].assigned) {
+                        gameState = GameState.ASSIGN_CREW;
+                        return;
+                    }
+                }
+                gameState = GameState.ACTIVATE_THREATS;
+                update();
+            }
+        })
+
+        moveElement𝐹𝒶𝒷𝓊𝓁𝑜𝓊𝓈𝓁𝓎(el, $(`div#${this.id}.threat-ship`), element);
 
         this.deployed = true;
     }
@@ -73,17 +92,24 @@ var threats = []
 var activeThreats = []
 
 async function activateThreats() {
-    let activity = Math.floor(Math.random() * 6 + 1);
-    $(`div#threats > div#activity-monitor > img`).attr("src", "../assets/threats/ships/activity0.svg");
-    $(`div#threats > div#activity-monitor > img#${activity}`).attr("src", "../assets/threats/ships/activity1.svg");
-    stopAnimation($(`div#threats > div#activity-monitor > img`), "blinking");
-    playAnimation($(`div#threats > div#activity-monitor > img#${activity}`), "blinking");
-    for(let i = 0; i < activeThreats.length; i++)
-    {
-        await activeThreats[i].activate(activity);
-    }
-    stopAnimation($(`div#threats > div#activity-monitor > img`), "blinking");
-    // $(`div#threats > div#activity-monitor > img`).attr("src", "../assets/threats/ships/activity0.svg");
+    return new Promise(async (resolve) => {
+        let activity = Math.floor(Math.random() * 6 + 1);
+        console.log(activity);
+        console.log(`div#threats > div#activity-monitor > img#${activity}`, $(`div#threats > div#activity-monitor > img#${activity}`).length);
+        $(`div#threats > div#activity-monitor > img`).attr("src", "../assets/threats/ships/activity0.svg");
+        $(`div#threats > div#activity-monitor > img#a${activity}`).attr("src", "../assets/threats/ships/activity1.svg");
+        stopAnimation($(`div#threats > div#activity-monitor > img`), "blinking");
+        playAnimation($(`div#threats > div#activity-monitor > img#a${activity}`), "blinking");
+        await new Promise(r => setTimeout(r, 1000));
+        for(let i = 0; i < activeThreats.length; i++)
+        {
+            await activeThreats[i].activate(activity);
+        }
+        await new Promise(r => setTimeout(r, 1000));
+        stopAnimation($(`div#threats > div#activity-monitor > img`), "blinking");
+        resolve();
+    })
+    
 }
 
 function closeThreatMenu() {
@@ -100,13 +126,5 @@ function openThreatMenu() {
 }
 
 $("document").ready(function() { 
-    $("div#threats").mouseleave(function(){
-        if(gameState != GameState.ACTIVATE_THREATS && gameState != GameState.ATTACK_THREAT)
-            closeThreatMenu();
-    })
-
-    $("div#threats-tab").mouseenter(function(){
-        if(gameState != GameState.ACTIVATE_THREATS && gameState != GameState.ATTACK_THREAT)
-            openThreatMenu();
-    })
+    
 })

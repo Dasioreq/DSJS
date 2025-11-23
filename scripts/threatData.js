@@ -136,12 +136,14 @@ function setup() {
         threats.splice(index, 1);
     }
     threats = buff;
+    $("div#threatDeck > p#threatCnt").html(threats.length);
 }
 
 function pullThreat() {
     let threat = threats.pop();
     activeThreats.push(threat);
     threat.deploy($("div#threats"));
+    $("div#threatDeck > p#threatCnt").html(threats.length);
     activeThreats.sort(function(a, b){b.weight - a.weight})
 }
 

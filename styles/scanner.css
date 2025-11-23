@@ -1,18 +1,51 @@
 div#scanner, div#scannerBackdrop {
     position: absolute;
-    width: 23.6076vw;
+    width: calc(18vmin + 20px);
+    left: calc(23.6076vw / 2);
+    transform: translateX(-50%);
+    height: 6vmin;
     margin: 5px;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     gap: 5px;
+    overflow: visible;
 }
 
 div#scanner > img, div#scannerBackdrop > img {
     margin-left: 2.5px;
     margin-right: 2.5px;
+    width: 6vmin;
 }
 
 div#scannerBackdrop {
     opacity: 0.5;
+}
+
+div#threatDeck {
+    position: absolute;
+    display: flex;
+    left: calc(23.6076vw / 2);
+    width: 15vw;
+    transform: translateX(-50%);
+    top: 10vh;
+    text-align: center;
+    justify-content: center;
+}
+
+div#threatDeck > p {
+    position: absolute;
+    color: rgb(255, 70, 70);
+    font-weight: bold;
+    font-size: 1.6vmin;
+}
+
+div#threatDeck > p#threatCnt {
+    bottom: 5%;
+    font-size: 1.75vmin;
+}
+
+div#threatDeck > img {
+    width: 80%;
+    border-radius: 15px;
 }

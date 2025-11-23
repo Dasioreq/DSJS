@@ -33,35 +33,38 @@ function randomCrewType() {
 var crewIdCache = 0;
 var selectedId = -1;
 
-function moveElement𝐹𝒶𝒷𝓊𝓁𝑜𝓊𝓈𝓁𝓎(newEl, old, newParent) {
-    newParent.append(newEl);
+async function moveElement𝐹𝒶𝒷𝓊𝓁𝑜𝓊𝓈𝓁𝓎(newEl, old, newParent) {
+    return new Promise((resolve) => {
+        newParent.append(newEl);
 
-    if(old.length > 0) {
-        newParent.children().last().css({visibility: "hidden"});
+        if(old.length > 0) {
+            newParent.children().last().css({visibility: "hidden"});
 
-        let oldX = old.offset().left;
-        let oldY = old.offset().top;
+            let oldX = old.offset().left;
+            let oldY = old.offset().top;
 
-        old.prependTo($("body"));
-        old.css({
-            position: "absolute",
-            top: oldY,
-            left: oldX,
-            zIndex: 999
-        });
+            old.prependTo($("body"));
+            old.css({
+                position: "absolute",
+                top: oldY,
+                left: oldX,
+                zIndex: 999
+            });
 
-        let targetY = newParent.children().last().offset().top;
-        let targetX = newParent.children().last().offset().left;
-        old.animate({top: targetY, left: targetX}, 250, function() {
-            newParent.children().css({visibility: "visible"});
-            old.remove();
-        });
+            let targetY = newParent.children().last().offset().top;
+            let targetX = newParent.children().last().offset().left;
+            old.animate({top: targetY, left: targetX}, 250, function() {
+                newParent.children().css({visibility: "visible"});
+                old.remove();
+                resolve();
+            });
 
-    }
-    else {
-        console.log("b");
-        newParent.css({visibility: "visible"})
-    }
+        }
+        else {
+            newParent.css({visibility: "visible"})
+            resolve();
+        }
+    })
 }
 
 class Crew {
@@ -74,67 +77,57 @@ class Crew {
         this.element = `img#${this.id}.crewDie`;
     }
 
-    render(element) {
-//         let old = $(this.element);
-
-//         let el = `
-// <img src = "../assets/crew/${this.type.description}.png" id = "${this.id}" class = "crewDie">
-//         `;
-
-//         element.append(el);
-
-
-//         if(old.length > 0) {
-//             element.children().last().css({visibility: "hidden"});
-
-//             let oldX = old.offset().left;
-//             let oldY = old.offset().top;
-
-//             old.prependTo($("body"));
-//             old.css({
-//                 position: "absolute",
-//                 top: oldY,
-//                 left: oldX,
-//                 zIndex: 999
-//             });
-
-//             let targetY = element.children().last().offset().top;
-//             let targetX = element.children().last().offset().left;
-//             old.animate({top: targetY, left: targetX}, 250, function() {
-//                 element.children().last().css({visibility: "visible"});
-//                 old.remove();
-//             });
-
-//         }
-//         else {
-//             element.css({visibility: "visible"})
-//         }
-        moveElement𝐹𝒶𝒷𝓊𝓁𝑜𝓊𝓈𝓁𝓎(`
+    async render(element) {
+        await moveElement𝐹𝒶𝒷𝓊𝓁𝑜𝓊𝓈𝓁𝓎(`
  <img src = "../assets/crew/${this.type.description}.png" id = "${this.id}" class = "crewDie">
         `, 
             $(this.element), element);
 
         let self = this;
-        $(`img#${this.id}.crewDie`).click(function() {
-            if(gameState == GameState.COMMANDER) {
-
-            }
-            else if(gameState == GameState.ASSIGN_CREW) {
+        $(this.element).off("click");
+        $(this.element).click(function() {
+            if(gameState == GameState.ASSIGN_CREW) {
                 if(!self.assigned)
                 {
+                    for(let i = 0; i < rooms.length; i++) {
+                        if(rooms[i].crewType == self.type) {
+                            rooms[i].element.addClass("highlight");
+                        }
+                        else {
+                            rooms[i].element.removeClass("highlight");
+                        }
+                    }
                     selectedId = self.id;
                 }
             }
         });
 
-        $(`img#${this.id}.crewDie`).mouseenter(function(event) {
+        $(this.element).off("mouseenter");
+        $(this.element).mouseenter(function(event) {
             if(!self.assigned) {
                 $(this).css({filter: "brightness(150%)"});
+                if(selectedId == -1) {
+                    for(let i = 0; i < rooms.length; i++) {
+                        if(rooms[i].crewType == self.type) {
+                            rooms[i].element.addClass("highlight");
+                        }
+                        else {
+                            rooms[i].element.removeClass("highlight");
+                        }
+                    }
+                }
+                
             }
         })
 
-        $(`img#${this.id}.crewDie`).mouseleave(function() {
+        $(this.element).off("mouseleave");
+        $(this.element).mouseleave(function() {
             $(this).css({filter: "none"});
+            if(selectedId == -1) {
+                for(let i = 0; i < rooms.length; i++) {
+                    rooms[i].element.removeClass("highlight");
+                }
+            }
         })
     }
 
@@ -144,9 +137,10 @@ class Crew {
 
     assign(lock) {
         this.assigned = true;
-        if(lock === Boolean) {
-            this.locked = lock;
+        for(let i = 0; i < rooms.length; i++) {
+            rooms[i].element.removeClass("highlight");
         }
+        this.locked = lock;
     }
 
     return(element) {
@@ -169,13 +163,16 @@ function closeDiceMenu() {
     $("div#crewDice").animate({left: "-23.6076vw"});
 }
 
-var crew = []
+var crew = [new Crew(), new Crew(), new Crew(), new Crew(), new Crew(), new Crew()]
 
 function rollCrew() {
     for(let i = 0; i < 6; i++)
     {
-        crew.push(new Crew());
-        crew[i].render($("div#crewDice > div#dice"));
+        if(!crew[i].locked) {
+            crew[i].reroll();
+            crew[i].assigned = false;
+            crew[i].render($("div#crewDice > div#dice"));
+        }
     }
 }
 

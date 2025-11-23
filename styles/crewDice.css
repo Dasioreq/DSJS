@@ -26,5 +26,9 @@ div#crewDice > div#text {
 
 div#dice > img {
     display: inline;
-    transition: margin-left linear;
+    width: 6vmin;
+}
+
+div#dice {
+    padding-left: 25px;
 }

@@ -20,6 +20,7 @@
         <script type="text/javascript" src = "../scripts/threatData.js"></script>
         <script type="text/javascript" src = "../scripts/game.js"></script>
         <script type="text/javascript" src = "../scripts/crewDice.js"></script>
+        <script type="text/javascript" src = "../scripts/JQueryBS.js"></script>
         <div id = "ship">
             <img src="../assets/Ship.png" id = "ship">
             <img src="../assets/ShieldHurt.png" id = "shieldHurt">
@@ -50,27 +51,28 @@
         <div id = "threats">
             <div id = "activity-monitor">
                 ACTIVITY MONITOR
-                <img class = "activity" src = "../assets/threats/ships/activity0.svg" id = "1">
-                <img class = "activity" src = "../assets/threats/ships/activity0.svg" id = "2">
-                <img class = "activity" src = "../assets/threats/ships/activity0.svg" id = "3">
-                <img class = "activity" src = "../assets/threats/ships/activity0.svg" id = "4">
-                <img class = "activity" src = "../assets/threats/ships/activity0.svg" id = "5">
-                <img class = "activity" src = "../assets/threats/ships/activity0.svg" id = "6">
+                <img class = "activity" src = "../assets/threats/ships/activity0.svg" id = "a1">
+                <img class = "activity" src = "../assets/threats/ships/activity0.svg" id = "a2">
+                <img class = "activity" src = "../assets/threats/ships/activity0.svg" id = "a3">
+                <img class = "activity" src = "../assets/threats/ships/activity0.svg" id = "a4">
+                <img class = "activity" src = "../assets/threats/ships/activity0.svg" id = "a5">
+                <img class = "activity" src = "../assets/threats/ships/activity0.svg" id = "a6">
             </div>
         </div>
         <div id = "crewDice">
-            <div id = "dice">
-
-            </div>
+            <div id = "dice"></div>
             <div id = "text">ASSIGN CREW</div>
-        </div>
-        <div id = "scanner">
-            
         </div>
         <div id = "scannerBackdrop">
             <img src = "../assets/crew/Threat Detected.png">
             <img src = "../assets/crew/Threat Detected.png">
             <img src = "../assets/crew/Threat Detected.png">
+        </div>
+        <div id = "scanner"></div>
+        <div id = "threatDeck">
+            <img src = "../assets/threats/ships/Backside.png">
+            <p>THREATS REMAINING</p>
+            <p id = "threatCnt">15</p>
         </div>
     </body>
 </html>
