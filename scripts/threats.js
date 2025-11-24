@@ -15,29 +15,26 @@ class Threat {
     }
 
     deploy(element) {
-        let el = `
+        let el = $(`
 <div class = "threat-ship" id = "${this.id}">
-    <img id = "ship" src = "${this.imgPath}">
-    <p id = "hp">${this.health}</p>
-        `;
+    <img id = "ship" src = "${this.imgPath}">                       
+    <p id = "hp">${this.health}</p></div>
+        `);
 
         for(let i = 1; i <= 6; i++) {
             if(this.activity.includes(i)) {
-                el += `<img class = "activity" src = "../assets/threats/ships/activity1.svg" style = "left: ${40 + 4 * (i - 1)}%; top: ${this.top}%">`;
+                $(el).append(`<img class = "activity" src = "../assets/threats/ships/activity1.svg" style = "left: ${40 + 4 * (i - 1)}%; top: ${this.top}%">`);
             }
             else {
-                el += `<img class = "activity" src = "../assets/threats/ships/activity0.svg" style = "left: ${40 + 4 * (i - 1)}%; top: ${this.top}%">`;
+                $(el).append(`<img class = "activity" src = "../assets/threats/ships/activity0.svg" style = "left: ${40 + 4 * (i - 1)}%; top: ${this.top}%">`);
             }
         }
 
-        el += "</div>";
-        $("div#threatDeck").append(el);
-
-        $(`div#${this.id}.threat-ship`).off("click");
         let self = this;
-        $(`div#${this.id}.threat-ship`).click(function() {
+        $(el).click(async function() {
             if(gameState == GameState.ATTACK_THREAT) {
                 self.dealDamage((rooms[1].assignedCrew.length > 1)? 2 : 1);
+                await new Promise(r => setTimeout(r, 1000));
                 closeThreatMenu();
                 for(let i = 0; i < 6; i++) {
                     if(!crew[i].assigned) {
@@ -60,6 +57,7 @@ class Threat {
             if(this.activity.includes(activity)) {
                 const fun = () => {
                     this.effect();
+                    threatsActivated = true;
                     stopAnimation($(`div#${this.id}.threat-ship`), "fire");
                     resolve();
                 }
@@ -73,9 +71,14 @@ class Threat {
         
     }
 
-    dealDamage(damage) {
+    async dealDamage(damage) {
+        stopAnimation($("div.threat-ship"), "shake");
+        playAnimation($(`div#${this.id}.threat-ship`), "shake", "true");
+
         if(this.health - damage <= 0) {
             this.health = 0;
+            $(`div#${this.id}.threat-ship > p`).html(this.health);
+            await new Promise(r => setTimeout(r, 1000));
             $(`div#${this.id}.threat-ship`).remove();
             this.deployed = false;
         }
@@ -83,8 +86,7 @@ class Threat {
             this.health -= damage;
         }
 
-        $(`div#${this.id}.threat-ship > p#hp`).html(this.health);
-        playAnimation($(`div#${this.id}.threat-ship`), "shake", "true");
+        $(`div#${this.id}.threat-ship > p`).html(this.health);
     }
 }
 

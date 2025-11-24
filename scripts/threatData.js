@@ -93,7 +93,7 @@ const data = {
         {
             name: "Mercenary",
             health: 3,
-            effect: function() {},
+            effect: function() { if(!threatsActivated) dealDamage(2) },
             activity: [1, 2, 3, 4, 5, 6],
             imgPath: "../assets/threats/ships/Mercenary.png",
             qnt: 1,

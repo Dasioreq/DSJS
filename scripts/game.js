@@ -8,6 +8,8 @@ const GameState = Object.freeze({
 })
 let gameState = GameState.NONE;
 
+let threatsActivated = false;
+
 async function update() {
     switch(gameState) {
         case GameState.NONE:
@@ -20,6 +22,7 @@ async function update() {
         break;
         case GameState.ACTIVATE_THREATS:
             openThreatMenu();
+            threatsActivated = false;
             await activateThreats();
             closeThreatMenu();
             gameState = GameState.ASSIGN_CREW;

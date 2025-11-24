@@ -131,23 +131,12 @@ class Crew {
         })
     }
 
-    removeElement() {
-        $(`img#${this.id}.crewDie`).remove()
-    }
-
     assign(lock) {
         this.assigned = true;
         for(let i = 0; i < rooms.length; i++) {
             rooms[i].element.removeClass("highlight");
         }
         this.locked = lock;
-    }
-
-    return(element) {
-        if(!this.locked) {
-            $(`img#${this.id}.crewDie`).detach().appendTo(element);
-            this.assigned = false;
-        }
     }
 
     reroll() {

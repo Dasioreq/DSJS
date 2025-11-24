@@ -1,0 +1,24 @@
+.option {
+    color: black;
+    background-color: gainsboro;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    display: inline-block
+}
+
+.option:hover {
+    background-color: rgb(255, 231, 151);
+}
+
+.option > p {
+    margin: 0;  
+}
+
+.options-menu {
+    background-color: gainsboro;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+    display: inline-block
+}
