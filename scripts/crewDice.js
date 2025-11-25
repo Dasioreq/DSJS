@@ -163,6 +163,12 @@ function rollCrew() {
             crew[i].render($("div#crewDice > div#dice"));
         }
     }
+
+    for(let i = 0; i < rooms.length; i++) {
+        if(!rooms[i].lock) {
+            rooms[i].assignedCrew = [];
+        }
+    }
 }
 
 $("document").ready(function() {

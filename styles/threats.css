@@ -48,10 +48,13 @@ div#threats > div#activity-monitor {
     position: fixed;
     top: 0;
     z-index: 9001; /*it's over 9000*/
+    font-size: 0.75vw;
+
 }
 
 div#threats > div#activity-monitor > img.activity {
-    width: 3vmin;
+    width: 1.5vw;
+    margin: 0;
 }
 
 div#threats > div.threat-ship {

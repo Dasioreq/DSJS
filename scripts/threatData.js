@@ -144,7 +144,16 @@ function pullThreat() {
     activeThreats.push(threat);
     threat.deploy($("div#threats"));
     $("div#threatDeck > p#threatCnt").html(threats.length);
-    activeThreats.sort(function(a, b){b.weight - a.weight})
+    
+    for(let i = 0; i < activeThreats.length - 1; i++) {
+        for(let j = i; j < activeThreats.length - 1; j++) {
+            if(activeThreats[j].weight > activeThreats[j + 1].weight) {
+                let buffer = activeThreats[j];
+                activeThreats[j] = activeThreats[j + 1];
+                activeThreats[j + 1] = buffer;
+            }
+        }
+    }
 }
 
 $("document").ready(function() {

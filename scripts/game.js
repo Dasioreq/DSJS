@@ -4,7 +4,19 @@ const GameState = Object.freeze({
     CHOOSE_OPTION: Symbol("choose"),
     CHANGE_CREW: Symbol("change"),
     ATTACK_THREAT: Symbol("attack"),
-    ACTIVATE_THREATS: Symbol("threats")
+    STASIS_BEAM: Symbol("stasis"),
+    ACTIVATE_THREATS: Symbol("threats"),
+
+    next: function(currentState) {
+        switch(currentState) {
+            case(GameState.NONE):
+                return GameState.ASSIGN_CREW;
+                break;
+            case(GameState.ASSIGN_CREW):
+                return this.ACTIVATE_THREATS;
+                break;
+        }
+    }
 })
 let gameState = GameState.NONE;
 

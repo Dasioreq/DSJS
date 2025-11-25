@@ -37,7 +37,7 @@ div#threatDeck > p {
     position: absolute;
     color: rgb(255, 70, 70);
     font-weight: bold;
-    font-size: 1.6vmin;
+    font-size: 0.9vw;
 }
 
 div#threatDeck > p#threatCnt {

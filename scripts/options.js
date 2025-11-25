@@ -24,14 +24,23 @@ class OptionsMenu {
         return new Promise((resolve) => {
             if(this.options.length <= 0) {
                 resolve();
+                return;
             }
-            let el = $(`<div class = "options-menu"></div>`).hide();
-            for(let i = 0; i < this.options.length; i++) {
-                $(el).append(this.options[i].element().click(function() { $(el).slideUp(400, function() { $(el).remove() }); resolve() }));
+            if(this.options.length == 1) {
+                this.options[0].callback();
+                resolve();
+                return;
             }
-            $(el).css({position: "absolute", left: x, top: y});
-            $("body").append(el);
-            $(el).slideDown();
+            else {
+                let el = $(`<div class = "options-menu"></div>`).hide();
+                for(let i = 0; i < this.options.length; i++) {
+                    $(el).append(this.options[i].element().click(function() { $(el).slideUp(400, function() { $(el).remove() }); resolve() }));
+                }
+                $(el).css({position: "absolute", left: x, top: y});
+                $("body").append(el);
+                $(el).slideDown();
+            }
+            
         })
     }
 }

@@ -2,6 +2,7 @@ var idCache = 0;
 
 class Threat {
     constructor(name, health, effect, activity, weight, imgPath, top) {
+        this.stasisBeam = false;
         this.id = idCache;
         idCache++;
         this.name = name;
@@ -35,16 +36,45 @@ class Threat {
             if(gameState == GameState.ATTACK_THREAT) {
                 self.dealDamage((rooms[1].assignedCrew.length > 1)? 2 : 1);
                 await new Promise(r => setTimeout(r, 1000));
-                closeThreatMenu();
                 for(let i = 0; i < 6; i++) {
                     if(!crew[i].assigned) {
                         gameState = GameState.ASSIGN_CREW;
+                        closeThreatMenu();
                         return;
                     }
                 }
-                gameState = GameState.ACTIVATE_THREATS;
+                gameState = GameState.next(GameState.ASSIGN_CREW);
                 update();
             }
+            else if(gameState == GameState.STASIS_BEAM) {
+                $(this).css({outline: "5px solid green"});
+                self.stasisBeam = true;
+                for(let i = 0; i < 6; i++) {
+                    if(!crew[i].assigned) {
+                        gameState = GameState.ASSIGN_CREW;
+                        closeThreatMenu();
+                        return;
+                    }
+                }
+                gameState = GameState.next(GameState.ASSIGN_CREW);
+                update();
+            }
+        })
+
+        $(el).mouseover(function() {
+            if(gameState == GameState.ATTACK_THREAT) {
+                $(this).css({outline: "5px solid red"})
+            }
+            else if(gameState == GameState.STASIS_BEAM) {
+                $(this).css({outline: "5px solid green"});
+            }
+        })
+
+        $(el).mouseleave(function() {
+            if(!self.stasisBeam)
+                $(this).css({outline: "none"})
+            else
+                $(this).css({outline: "5px solid green"});
         })
 
         moveElement𝐹𝒶𝒷𝓊𝓁𝑜𝓊𝓈𝓁𝓎(el, $(`div#${this.id}.threat-ship`), element);
@@ -54,6 +84,12 @@ class Threat {
 
     activate(activity) {
         return new Promise((resolve) => {
+            if(this.stasisBeam) {
+                this.stasisBeam = false;
+                $(`div#${this.id}.threat-ship`).css({outline: "none"});
+                resolve();
+                return;
+            }
             if(this.activity.includes(activity)) {
                 const fun = () => {
                     this.effect();
@@ -80,6 +116,11 @@ class Threat {
             $(`div#${this.id}.threat-ship > p`).html(this.health);
             await new Promise(r => setTimeout(r, 1000));
             $(`div#${this.id}.threat-ship`).remove();
+            for(let i = 0; i < activeThreats.length; i++) {
+                if(activeThreats[i].id == this.id) {
+                    activeThreats.splice(i, 1);
+                }
+            }
             this.deployed = false;
         }
         else {

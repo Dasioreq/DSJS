@@ -28,21 +28,23 @@ class Room {
             {
                 if(crew[i].type == this.crewType) 
                 {
-                    await this.onAssign(this);
-                    crew[i].assign(this.lock);
                     this.assignedCrew.push(crew[i]);
+                    crew[i].assign(this.lock);
                     await crew[i].render(this.element);
-                    selectedId = -1;
-                    for(let i = 0; i < crew.length; i++)
-                    {
-                        if(!crew[i].assigned)
+                    await this.onAssign(this);
+                    if(gameState == GameState.ASSIGN_CREW) {
+                        selectedId = -1;
+                        for(let i = 0; i < crew.length; i++)
                         {
-                            return;
+                            if(!crew[i].assigned)
+                            {
+                                return;
+                            }
                         }
+                        gameState = GameState.next(gameState);
+                        closeDiceMenu();
+                        update();
                     }
-                    gameState = GameState.ACTIVATE_THREATS;
-                    closeDiceMenu();
-                    update();
                 }
             }
         }
@@ -55,7 +57,12 @@ $(document).ready(function()
 {
     rooms = [
         new Room(CrewType.COMMANDER, async function() { console.log("Commander"); }, false, $("div#ship > div#crew")),
-        new Room(CrewType.TACTICAL, async function() { openThreatMenu(); gameState = GameState.ATTACK_THREAT }, false, $("div#ship > div#fire")),
+        new Room(CrewType.TACTICAL, async function() { 
+            if(activeThreats.length) {
+                openThreatMenu(); 
+                gameState = GameState.ATTACK_THREAT
+            } 
+        }, false, $("div#ship > div#fire")),
         new Room(CrewType.MEDICAL, async function() { 
             let options = [];
             if(rooms[5].assignedCrew.length) {
@@ -67,7 +74,16 @@ $(document).ready(function()
             }
             await new OptionsMenu(options).query($("div#ship > div#infirmary").offset().left, $("div#ship > div#infirmary").offset().top);
         }, false, $("div#ship > div#infirmary")),
-        new Room(CrewType.SCIENCE, async function() { console.log("Science"); }, false, $("div#ship > div#recharge")),
+        new Room(CrewType.SCIENCE, async function(self) { 
+            let options = [new Option("Recharge shields", function() { repairShields(1000) })];
+            if(activeThreats.length) {
+                options.push(new Option("Stasis beam", function() {
+                    openThreatMenu();
+                    gameState = GameState.STASIS_BEAM;
+                }))
+            }
+            await new OptionsMenu(options).query($("div#ship > div#recharge").offset().left, $("div#ship > div#recharge").offset().top);
+        }, false, $("div#ship > div#recharge")),
         new Room(CrewType.ENGINEERING, async function(self) { hull = clamp(hull + (self.assignedCrew.length > 1? 2 : 1), 0, 8); updateShieldAndHull(); }, false, $("div#ship > div#repair")),
 
         new Room(CrewType.THREAT_D, async function(self) { 
