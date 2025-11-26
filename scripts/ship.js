@@ -30,12 +30,15 @@ class Room {
             {
                 if(crew[i].type == this.crewType || this.crewType == CrewType.ANY) 
                 {
+                    if(gameState == GameState.ASSIGN_CREW)
+                        selectedId = -1;
+
                     this.assignedCrew.push(crew[i]);
                     crew[i].assign(this.lock);
                     await crew[i].render(this.element);
                     await this.onAssign(this);
+
                     if(gameState == GameState.ASSIGN_CREW) {
-                        selectedId = -1;
                         for(let i = 0; i < crew.length; i++)
                         {
                             if(!crew[i].assigned)
@@ -75,7 +78,7 @@ $(document).ready(function()
     rooms = [
         new Room(CrewType.COMMANDER, async function() { 
             for(let i = 0; i < crew.length; i++) {
-                if(!crew[i].assigned) {
+                if(!crew[i].assigned && crew[i].type != CrewType.THREAT_D) {
                     gameState = GameState.CHANGE_CREW 
                     return;
                 }

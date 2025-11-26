@@ -188,7 +188,6 @@ function rollCrew() {
         if(!rooms[i].lock) {
             rooms[i].assignedCrew = [];
         }
-        infirmary.assignedCrew = [];
     }
 }
 

@@ -32,9 +32,25 @@ class OptionsMenu {
                 return;
             }
             else {
+                gameState = GameState.CHOOSE_OPTION;
                 let el = $(`<div class = "options-menu"></div>`).hide();
                 for(let i = 0; i < this.options.length; i++) {
-                    $(el).append(this.options[i].element().click(function() { $(el).slideUp(400, function() { $(el).remove() }); resolve() }));
+                    let self = this;
+                    console.log(this.options[i]);
+                    $(el).append(this.options[i].element().click(function() { 
+                        $(el).slideUp(400, function() { $(el).remove() }); 
+                        for(let j = 0; j < crew.length; j++) {
+                            if(!crew[j].assigned) {
+                                gameState = GameState.ASSIGN_CREW;
+                                self.options[i].callback();
+                                resolve();
+                                return;
+                            }
+                        }
+                        gameState = GameState.next(gameState);
+                        self.options[i].callback();
+                        resolve();
+                    }));
                 }
                 $(el).css({position: "absolute", left: x, top: y});
                 $("body").append(el);
