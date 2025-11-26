@@ -73,7 +73,7 @@ const data = {
         {
             name: "Strike Bomber",
             health: 2,
-            effect: function() { dealDamage(1); /*Sent unit to infirmary*/},
+            effect: function() { dealDamage(1); sendUnitToInfirmary()},
             activity: [2, 4],
             imgPath: "../assets/threats/ships/Strike Bomber.png",
             qnt: 1,
@@ -83,7 +83,7 @@ const data = {
         {
             name: "Strike Bomber",
             health: 2,
-            effect: function() { dealDamage(1); /*Sent unit to infirmary*/},
+            effect: function() { dealDamage(1); sendUnitToInfirmary()},
             activity: [3, 4],
             imgPath: "../assets/threats/ships/Strike Bomber.png",
             qnt: 1,
@@ -140,6 +140,9 @@ function setup() {
 }
 
 function pullThreat() {
+    if(!threats.length) {
+        return;
+    }
     let threat = threats.pop();
     activeThreats.push(threat);
     threat.deploy($("div#threats"));
@@ -158,7 +161,4 @@ function pullThreat() {
 
 $("document").ready(function() {
     setup();
-
-    pullThreat();
-    pullThreat();
 })

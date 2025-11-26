@@ -16,7 +16,9 @@ class Room {
 
         let self = this;
         this.element.click(function() {
-            self.assign(selectedId, lock);
+            if(self.crewType != CrewType.ANY) {
+                self.assign(selectedId);
+            }
         }) 
     }
 
@@ -26,7 +28,7 @@ class Room {
         {
             if(crew[i].id == crewMemberId)
             {
-                if(crew[i].type == this.crewType) 
+                if(crew[i].type == this.crewType || this.crewType == CrewType.ANY) 
                 {
                     this.assignedCrew.push(crew[i]);
                     crew[i].assign(this.lock);
@@ -52,11 +54,33 @@ class Room {
 }
 
 let rooms = [];
+let infirmary;
+
+function sendUnitToInfirmary() {
+    while(true) {
+        let index = Math.floor(Math.random() * rooms.length);
+        console.log(index);
+        if(rooms[index].assignedCrew.length && !rooms[index].lock) {
+            infirmary.assign(rooms[index].assignedCrew.pop().id);
+            console.log(infirmary.assignedCrew.length);
+            return;
+        }
+    }
+}
 
 $(document).ready(function()
 {
+    infirmary = new Room(CrewType.ANY, function() {}, true, $("div#medic > div#infirmary"));
+
     rooms = [
-        new Room(CrewType.COMMANDER, async function() { console.log("Commander"); }, false, $("div#ship > div#crew")),
+        new Room(CrewType.COMMANDER, async function() { 
+            for(let i = 0; i < crew.length; i++) {
+                if(!crew[i].assigned) {
+                    gameState = GameState.CHANGE_CREW 
+                    return;
+                }
+            }
+        }, false, $("div#ship > div#crew")),
         new Room(CrewType.TACTICAL, async function() { 
             if(activeThreats.length) {
                 openThreatMenu(); 
@@ -65,11 +89,20 @@ $(document).ready(function()
         }, false, $("div#ship > div#fire")),
         new Room(CrewType.MEDICAL, async function() { 
             let options = [];
+            if(infirmary.assignedCrew.length) {
+                options.push(new Option("Return all units from the Infirmary"), function() {
+                    for(let i = 0; i < infirmary.assignedCrew.length;) {
+                        let unit = infirmary.assignedCrew.pop();
+                        unit.locked = false;
+                        unit.render($("div#returned-div"));
+                    }
+                })
+            }
             if(rooms[5].assignedCrew.length) {
                 options.push(new Option("Decrease threat meter", function() {
                     let scanner = rooms[5].assignedCrew.pop();
                     scanner.locked = false;
-                    scanner.render($("div#medic"));
+                    scanner.render($("div#returned-div"));
                 }))
             }
             await new OptionsMenu(options).query($("div#ship > div#infirmary").offset().left, $("div#ship > div#infirmary").offset().top);

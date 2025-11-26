@@ -1,4 +1,5 @@
 const CrewType = Object.freeze({
+    ANY: Symbol("any"),
     COMMANDER: Symbol("Commander"),
     TACTICAL: Symbol("Tactical"),
     MEDICAL: Symbol("Medical"),
@@ -81,11 +82,11 @@ class Crew {
         await moveElement𝐹𝒶𝒷𝓊𝓁𝑜𝓊𝓈𝓁𝓎(`
  <img src = "../assets/crew/${this.type.description}.png" id = "${this.id}" class = "crewDie">
         `, 
-            $(this.element), element);
+        $(this.element), element);
 
         let self = this;
         $(this.element).off("click");
-        $(this.element).click(function() {
+        $(this.element).click(async function() {
             if(gameState == GameState.ASSIGN_CREW) {
                 if(!self.assigned)
                 {
@@ -99,6 +100,25 @@ class Crew {
                     }
                     selectedId = self.id;
                 }
+            }
+            else if(gameState == GameState.CHANGE_CREW && self.type != CrewType.THREAT_D) {
+                await new OptionsMenu([
+                    new Option("Commander", function() { self.type = CrewType.COMMANDER; }),
+                    new Option("Tactical", function() { self.type = CrewType.TACTICAL; }),
+                    new Option("Medical", function() { self.type = CrewType.MEDICAL; }),
+                    new Option("Science", function() { self.type = CrewType.SCIENCE; }),
+                    new Option("Engineering", function() { self.type = CrewType.ENGINEERING; }),
+                ]).query($(this).offset().left, $(this).offset().top + $(this).height());
+                $(self.element).attr("src", `../assets/crew/${self.type.description}.png`);
+
+                for(let i = 0; i < crew.length; i++) {
+                    if(!crew[i].assigned) {
+                        gameState = GameState.ASSIGN_CREW;
+                        return;
+                    }
+                }
+
+                gameState = GameState.next(gameState);
             }
         });
 
@@ -168,6 +188,7 @@ function rollCrew() {
         if(!rooms[i].lock) {
             rooms[i].assignedCrew = [];
         }
+        infirmary.assignedCrew = [];
     }
 }
 

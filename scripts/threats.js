@@ -35,6 +35,7 @@ class Threat {
         $(el).click(async function() {
             if(gameState == GameState.ATTACK_THREAT) {
                 self.dealDamage((rooms[1].assignedCrew.length > 1)? 2 : 1);
+                gameState = GameState.NONE;
                 await new Promise(r => setTimeout(r, 1000));
                 for(let i = 0; i < 6; i++) {
                     if(!crew[i].assigned) {
@@ -167,6 +168,8 @@ function openThreatMenu() {
         $("div#threats-tab").animate({right: '15vw'}, 200);
     }
 }
+
+
 
 $("document").ready(function() { 
     

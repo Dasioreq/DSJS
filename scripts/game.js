@@ -25,10 +25,12 @@ let threatsActivated = false;
 async function update() {
     switch(gameState) {
         case GameState.NONE:
+            pullThreat();
             gameState = GameState.ASSIGN_CREW;
             update();
         break;
         case GameState.ASSIGN_CREW:
+            pullThreat();
             rollCrew();
             openDiceMenu();
         break;
