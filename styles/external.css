@@ -1,0 +1,31 @@
+div.threat-external {
+    width: 90%;
+    margin: auto;
+    border-radius: 15px;
+    position: relative;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div.threat-external > img#ship {
+    width: 100%;
+}
+
+div.threat-external > img.activity {
+    position: absolute;
+    width: 0.5cqw;
+    transform: translate(-50%, -50%);
+}
+
+div.threat-external > img.threatDie {
+    position: absolute;
+    width: 10%;
+    bottom: 5%;
+    right: 5%;
+}
+
+div.threat-external > img.crewDie {
+    position: absolute;
+}

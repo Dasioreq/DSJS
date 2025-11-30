@@ -15,6 +15,9 @@ const GameState = Object.freeze({
             case(GameState.ASSIGN_CREW):
                 return this.ACTIVATE_THREATS;
                 break;
+            case(GameState.CHOOSE_OPTION):
+                return GameState.ACTIVATE_THREATS;
+                break;
         }
     }
 })

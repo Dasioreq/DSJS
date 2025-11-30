@@ -98,6 +98,16 @@ class Crew {
                             rooms[i].element.removeClass("highlight");
                         }
                     }
+                    for(let i = 0; i < activeThreats.length; i++) {
+                        if(activeThreats[i].room) {
+                            if(activeThreats[i].room.crewType == self.type) {
+                                activeThreats[i].room.element.addClass("highlight");
+                            }
+                            else {
+                                activeThreats[i].room.element.removeClass("highlight");
+                            }
+                        }
+                    }
                     selectedId = self.id;
                 }
             }
@@ -135,6 +145,16 @@ class Crew {
                             rooms[i].element.removeClass("highlight");
                         }
                     }
+                    for(let i = 0; i < activeThreats.length; i++) {
+                        if(activeThreats[i].room) {
+                            if(activeThreats[i].room.crewType == self.type) {
+                                activeThreats[i].room.element.addClass("highlight");
+                            }
+                            else {
+                                activeThreats[i].room.element.removeClass("highlight");
+                            }
+                        }
+                    }
                 }
                 
             }
@@ -147,6 +167,11 @@ class Crew {
                 for(let i = 0; i < rooms.length; i++) {
                     rooms[i].element.removeClass("highlight");
                 }
+                for(let i = 0; i < activeThreats.length; i++) {
+                    if(activeThreats[i].room) {
+                        activeThreats[i].room.element.removeClass("highlight");
+                    }
+                }
             }
         })
     }
@@ -155,6 +180,11 @@ class Crew {
         this.assigned = true;
         for(let i = 0; i < rooms.length; i++) {
             rooms[i].element.removeClass("highlight");
+        }
+        for(let i = 0; i < activeThreats.length; i++) {
+            if(activeThreats[i].room) {
+                activeThreats[i].room.element.removeClass("highlight");
+            }
         }
         this.locked = lock;
     }

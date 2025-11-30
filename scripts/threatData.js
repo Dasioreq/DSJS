@@ -136,6 +136,13 @@ function setup() {
         threats.splice(index, 1);
     }
     threats = buff;
+    threats.push(new ExternalThreat("Test", 2, CrewType.SCIENCE, function() {
+        for(let i = 0; i < activeThreats.length; i++) {
+            if(activeThreats[i].health) {
+                activeThreats[i].health = Math.min(activeThreats[i].maxHealth, activeThreats[i].health + 1);
+            }
+        }
+    }, [1, 2, 3, 4, 5, 6], "../assets/threats/ships/Fighter.png", 46.85));
     $("div#threatDeck > p#threatCnt").html(threats.length);
 }
 

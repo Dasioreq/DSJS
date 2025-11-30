@@ -59,15 +59,19 @@ class Room {
 let rooms = [];
 let infirmary;
 
-function sendUnitToInfirmary() {
-    while(true) {
-        let index = Math.floor(Math.random() * rooms.length);
-        console.log(index);
-        if(rooms[index].assignedCrew.length && !rooms[index].lock) {
-            infirmary.assign(rooms[index].assignedCrew.pop().id);
-            console.log(infirmary.assignedCrew.length);
-            return;
+function sendUnitToInfirmary(unit = null) {
+    if(unit == null) {
+        while(true) {
+            let index = Math.floor(Math.random() * rooms.length);
+            console.log(index);
+            if(rooms[index].assignedCrew.length && !rooms[index].lock) {
+                infirmary.assign(rooms[index].assignedCrew.pop().id);
+                return;
+            }
         }
+    }
+    else {
+        infirmary.assign(unit);
     }
 }
 
@@ -93,13 +97,13 @@ $(document).ready(function()
         new Room(CrewType.MEDICAL, async function() { 
             let options = [];
             if(infirmary.assignedCrew.length) {
-                options.push(new Option("Return all units from the Infirmary"), function() {
+                options.push(new Option("Return all units from the Infirmary", function() {
                     for(let i = 0; i < infirmary.assignedCrew.length;) {
                         let unit = infirmary.assignedCrew.pop();
                         unit.locked = false;
                         unit.render($("div#returned-div"));
                     }
-                })
+                }));
             }
             if(rooms[5].assignedCrew.length) {
                 options.push(new Option("Decrease threat meter", function() {

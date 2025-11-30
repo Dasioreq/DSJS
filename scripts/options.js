@@ -23,11 +23,29 @@ class OptionsMenu {
     async query(x, y) {
         return new Promise((resolve) => {
             if(this.options.length <= 0) {
+                for(let j = 0; j < crew.length; j++) {
+                    if(!crew[j].assigned) {
+                        gameState = GameState.ASSIGN_CREW;
+                        resolve();
+                        return;
+                    }
+                }
+                gameState = GameState.next(gameState);
+                update();
                 resolve();
                 return;
             }
             if(this.options.length == 1) {
                 this.options[0].callback();
+                for(let j = 0; j < crew.length; j++) {
+                    if(!crew[j].assigned) {
+                        gameState = GameState.ASSIGN_CREW;
+                        resolve();
+                        return;
+                    }
+                }
+                gameState = GameState.next(gameState);
+                update();
                 resolve();
                 return;
             }
@@ -48,6 +66,7 @@ class OptionsMenu {
                             }
                         }
                         gameState = GameState.next(gameState);
+                        update();
                         self.options[i].callback();
                         resolve();
                     }));

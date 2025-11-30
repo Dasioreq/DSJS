@@ -6,6 +6,7 @@ class Threat {
         this.id = idCache;
         idCache++;
         this.name = name;
+        this.maxHealth = health;
         this.health = health;
         this.effect = effect;
         this.activity = activity;
