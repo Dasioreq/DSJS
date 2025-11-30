@@ -25,10 +25,6 @@ class ExternalThreat {
             }
         }
 
-        for(let i = 0; i < this.crewRequired; i++) {
-            $(this.element).append(`<img src = "../assets/crew/${crewType.description}.png" class = "threatDie" style = "right: ${i * 10 + 5}%">`);
-        }
-
         let self = this;
 
         this.room = new Room(crewType, function(me) {

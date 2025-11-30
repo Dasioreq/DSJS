@@ -111,7 +111,7 @@ function dealDamage(damage, ignoreShields = false)
             stopAnimation($("table#hull"), "shaking");
             stopAnimation($("table#hull"), "shake", true);
             $("table#hull").css("opacity", "50%");
-            // Yew fokin ded m8
+            alert("U ded m8, gl next time");
         }
         updateShieldAndHull();
     }

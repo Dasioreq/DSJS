@@ -19,13 +19,6 @@ div.threat-external > img.activity {
     transform: translate(-50%, -50%);
 }
 
-div.threat-external > img.threatDie {
-    position: absolute;
-    width: 10%;
-    bottom: 5%;
-    right: 5%;
-}
-
 div.threat-external > img.crewDie {
     position: absolute;
 }

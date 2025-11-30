@@ -59,7 +59,19 @@ class Room {
 let rooms = [];
 let infirmary;
 
+function isAnyCrewAssigned() {
+    for(let i = 0; i < rooms.length; i++) {
+        if(rooms[i].assignedCrew.length) {
+            return true;
+        }
+    }
+    return false;
+}
+
 function sendUnitToInfirmary(unit = null) {
+    if(!isAnyCrewAssigned) {
+        return;
+    }
     if(unit == null) {
         while(true) {
             let index = Math.floor(Math.random() * rooms.length);
@@ -90,8 +102,13 @@ $(document).ready(function()
         }, false, $("div#ship > div#crew")),
         new Room(CrewType.TACTICAL, async function() { 
             if(activeThreats.length) {
-                openThreatMenu(); 
-                gameState = GameState.ATTACK_THREAT
+                for(let i = 0; i < activeThreats.length; i++) {
+                    if(activeThreats[i].health) {
+                        openThreatMenu(); 
+                        gameState = GameState.ATTACK_THREAT
+                        return;
+                    }
+                }   
             } 
         }, false, $("div#ship > div#fire")),
         new Room(CrewType.MEDICAL, async function() { 
@@ -117,10 +134,15 @@ $(document).ready(function()
         new Room(CrewType.SCIENCE, async function(self) { 
             let options = [new Option("Recharge shields", function() { repairShields(1000) })];
             if(activeThreats.length) {
-                options.push(new Option("Stasis beam", function() {
-                    openThreatMenu();
-                    gameState = GameState.STASIS_BEAM;
-                }))
+                for(let i = 0; i < activeThreats.length; i++) {
+                    if(activeThreats[i].health) {
+                        options.push(new Option("Stasis beam", function() {
+                            openThreatMenu();
+                            gameState = GameState.STASIS_BEAM;
+                        }))
+                        return;
+                    }
+                }   
             }
             await new OptionsMenu(options).query($("div#ship > div#recharge").offset().left, $("div#ship > div#recharge").offset().top);
         }, false, $("div#ship > div#recharge")),

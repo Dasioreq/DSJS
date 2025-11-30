@@ -110,6 +110,69 @@ const data = {
             weight: 0,
             top: 50
         }
+    ],
+    "internal": [
+        {
+            name: "Time warp",
+            crewRequired: 2,
+            crewType: CrewType.SCIENCE,
+            effect: function() {
+                for(let i = 0; i < activeThreats.length; i++) {
+                    if(activeThreats[i].health) {
+                        activeThreats[i].health = Math.min(activeThreats[i].maxHealth, activeThreats[i].health + 1);
+                    }
+                }
+            },
+            activity: [2],
+            imgPath: "../assets/threats/internal/Time_warp.png",
+            qnt: 1,
+            weight: 0,
+            top: 46.85
+        },
+        {
+            name: "Invaders",
+            crewRequired: 2,
+            crewType: CrewType.TACTICAL,
+            effect: function() { sendUnitToInfirmary() },
+            activity: [2, 4],
+            imgPath: "../assets/threats/internal/Invaders.png",
+            qnt: 1,
+            weight: 0,
+            top: 46.85
+        },
+        {
+            name: "Pandemic",
+            crewRequired: 1,
+            crewType: CrewType.MEDICAL,
+            effect: function() { sendUnitToInfirmary() },
+            activity: [1],
+            imgPath: "../assets/threats/internal/Pandemic.png",
+            qnt: 1,
+            weight: 0,
+            top: 46.85
+        },
+        {
+            name: "Robot uprising",
+            crewRequired: 1,
+            crewType: CrewType.ENGINEERING,
+            effect: function() { sendUnitToInfirmary() },
+            activity: [1, 2, 3],
+            imgPath: "../assets/threats/internal/Robot_uprising.png",
+            qnt: 1,
+            weight: 0,
+            top: 46.85
+        },
+        {
+            name: "Acid burn",
+            crewRequired: 1,
+            crewType: CrewType.MEDICAL,
+            effect: function() { dealDamage(1) },
+            activity: [1, 2, 3, 4, 5],
+            imgPath: "../assets/threats/internal/Acid_burn.png",
+            qnt: 2,
+            weight: 0,
+            top: 46.85
+        },
     ]
 }
 
@@ -129,6 +192,21 @@ function setup() {
         }
     }
 
+    for(let i = 0; i < data["internal"].length; i++) {
+        let shipData = data["internal"][i];
+        for(let j = 0; j < shipData["qnt"]; j++) {
+            threats.push(new ExternalThreat(
+                shipData["name"],
+                shipData["crewRequired"],
+                shipData["crewType"],
+                shipData["effect"],
+                shipData["activity"],
+                shipData["imgPath"],
+                shipData["top"]
+            ));
+        }
+    }
+
     let buff = []
     while(threats.length) {
         let index = Math.floor(Math.random() * threats.length);
@@ -136,13 +214,13 @@ function setup() {
         threats.splice(index, 1);
     }
     threats = buff;
-    threats.push(new ExternalThreat("Test", 2, CrewType.SCIENCE, function() {
-        for(let i = 0; i < activeThreats.length; i++) {
-            if(activeThreats[i].health) {
-                activeThreats[i].health = Math.min(activeThreats[i].maxHealth, activeThreats[i].health + 1);
-            }
-        }
-    }, [1, 2, 3, 4, 5, 6], "../assets/threats/ships/Fighter.png", 46.85));
+    // threats.push(new ExternalThreat("Test", 2, CrewType.SCIENCE, function() {
+    //     for(let i = 0; i < activeThreats.length; i++) {
+    //         if(activeThreats[i].health) {
+    //             activeThreats[i].health = Math.min(activeThreats[i].maxHealth, activeThreats[i].health + 1);
+    //         }
+    //     }
+    // }, [2], "../assets/threats/internal/Time_warp.png", 46.85));
     $("div#threatDeck > p#threatCnt").html(threats.length);
 }
 

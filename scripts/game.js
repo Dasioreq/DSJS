@@ -33,6 +33,12 @@ async function update() {
             update();
         break;
         case GameState.ASSIGN_CREW:
+            if(!threats.length && !activeThreats.length) {
+                alert("You win! Now go play something that's actually good, like Deltarune. Or Undertale. Or Fallout. Or Devil May Cry. Or Borderlands. Or Metal Gear Solid. Or Project Zomboid. Or TF2 (both). Or Stardew Valley. Or Hades. Or Half-Life. Or even CS2 for crying out loud.");
+            }
+            if(crew.every(function(unit) {return unit.locked})) {
+                alert("You lost all your crew so you lose. Gettttttttttttt dunked oooonnnnnnnnnnn");
+            }
             pullThreat();
             rollCrew();
             openDiceMenu();
